@@ -3,6 +3,7 @@ import z from "zod";
 import { auth } from "../utils/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import Loader from "./Loader";
+import { toast } from "react-toastify";
 
 const validateSignUpFormSchema = z
     .object({
@@ -54,6 +55,7 @@ const SignUpForm = ({ toggleSignInForm }) => {
                 data.password
             );
             setIsSigningUp(false);
+            toast.success("User signed up successfully!");
         } catch (error) {
             setIsSigningUp(false);
             setErrors({ confirmPassword: error.code + " " + error.message });
