@@ -4,7 +4,7 @@ import LoginForm from "./LoginForm";
 import SignUpForm from "./SignUpForm";
 
 const Login = () => {
-    const [isSignInForm, setIsSignInForm] = useState(false);
+    const [isSignInForm, setIsSignInForm] = useState(true);
 
     const toggleSignInForm = () => {
         setIsSignInForm(!isSignInForm);
