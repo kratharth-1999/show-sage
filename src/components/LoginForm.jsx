@@ -46,7 +46,7 @@ const LoginForm = ({ toggleSignInForm }) => {
             setIsSigningIn(false);
             setLoginFormErrors({
                 ...loginFormErrors,
-                password: err.code + " " + err.message,
+                password: error.code + " " + error.message,
             });
         }
     };

@@ -56,7 +56,7 @@ const SignUpForm = ({ toggleSignInForm }) => {
             setIsSigningUp(false);
         } catch (error) {
             setIsSigningUp(false);
-            setErrors({ confirmPassword: err.code + " " + err.message });
+            setErrors({ confirmPassword: error.code + " " + error.message });
         }
     };
 
