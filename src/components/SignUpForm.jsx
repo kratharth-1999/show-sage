@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import z from "zod";
 import { auth } from "../utils/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import Loader from "./Loader";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { addUser } from "../store/slices/userSlice";
 
 const validateSignUpFormSchema = z
     .object({
@@ -25,6 +28,8 @@ const validateSignUpFormSchema = z
 const SignUpForm = ({ toggleSignInForm }) => {
     const [errors, setErrors] = useState({});
     const [isSigningUp, setIsSigningUp] = useState(false);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -49,13 +54,30 @@ const SignUpForm = ({ toggleSignInForm }) => {
 
     const signUpUser = async (data) => {
         try {
-            await createUserWithEmailAndPassword(
+            const user = await createUserWithEmailAndPassword(
                 auth,
                 data.email,
                 data.password
             );
-            setIsSigningUp(false);
-            toast.success("User signed up successfully!");
+            updateProfile(user.user, {
+                displayName: data.name,
+            })
+                .then(() => {
+                    setIsSigningUp(false);
+                    toast.success("User signed up successfully!");
+                    navigate("/browse");
+                    const { uid, email, displayName } = auth.currentUser;
+                    dispatch(
+                        addUser({
+                            uid: uid,
+                            email: email,
+                            displayName: displayName,
+                        })
+                    );
+                })
+                .catch((error) => {
+                    toast.error("Something went wrong. Please try again!");
+                });
         } catch (error) {
             setIsSigningUp(false);
             setErrors({ confirmPassword: error.code + " " + error.message });
