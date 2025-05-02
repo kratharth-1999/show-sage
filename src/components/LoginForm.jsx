@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { validateEmail, validatePassword } from "../utils/validate";
+import Loader from "./Loader";
+import { auth } from "../utils/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const LoginForm = ({ toggleSignInForm }) => {
     const [loginFormData, setLoginFormData] = useState({
@@ -12,6 +15,8 @@ const LoginForm = ({ toggleSignInForm }) => {
         password: "",
     });
 
+    const [isSigningIn, setIsSigningIn] = useState(false);
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -23,6 +28,27 @@ const LoginForm = ({ toggleSignInForm }) => {
             email: emailError ? emailError : "",
             password: passwordError ? passwordError : "",
         });
+
+        setIsSigningIn(true);
+        // Login the user
+        loginUser();
+    };
+
+    const loginUser = async () => {
+        try {
+            await signInWithEmailAndPassword(
+                auth,
+                loginFormData.email,
+                loginFormData.password
+            );
+            setIsSigningIn(false);
+        } catch (error) {
+            setIsSigningIn(false);
+            setLoginFormErrors({
+                ...loginFormErrors,
+                password: err.code + " " + err.message,
+            });
+        }
     };
 
     return (
@@ -95,7 +121,7 @@ const LoginForm = ({ toggleSignInForm }) => {
                     type="submit"
                     className="w-full bg-red-600 text-white hover:bg-red-700 transition-colors duration-200 py-3 text-lg rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
                 >
-                    Sign In
+                    {!isSigningIn ? "Sign In" : <Loader />}
                 </button>
                 <p className="text-gray-400" onClick={toggleSignInForm}>
                     New to ShowSage?{" "}
