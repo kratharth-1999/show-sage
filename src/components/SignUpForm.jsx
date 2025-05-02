@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import z from "zod";
+import { auth } from "../utils/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import Loader from "./Loader";
 
 const validateSignUpFormSchema = z
     .object({
@@ -20,15 +23,17 @@ const validateSignUpFormSchema = z
 
 const SignUpForm = ({ toggleSignInForm }) => {
     const [errors, setErrors] = useState({});
+    const [isSigningUp, setIsSigningUp] = useState(false);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData);
         try {
-            const validatedForm = validateSignUpFormSchema.parse(data);
+            validateSignUpFormSchema.parse(data);
+            setIsSigningUp(true);
             setErrors({});
-            console.log(validatedForm);
+            signUpUser(data);
         } catch (err) {
             if (err instanceof z.ZodError) {
                 const formattedErrors = err.errors.reduce((acc, error) => {
@@ -38,6 +43,20 @@ const SignUpForm = ({ toggleSignInForm }) => {
                 }, {});
                 setErrors(formattedErrors);
             }
+        }
+    };
+
+    const signUpUser = async (data) => {
+        try {
+            await createUserWithEmailAndPassword(
+                auth,
+                data.email,
+                data.password
+            );
+            setIsSigningUp(false);
+        } catch (error) {
+            setIsSigningUp(false);
+            setErrors({ confirmPassword: err.code + " " + err.message });
         }
     };
 
@@ -137,7 +156,7 @@ const SignUpForm = ({ toggleSignInForm }) => {
                     type="submit"
                     className="w-full bg-red-600 text-white hover:bg-red-700 transition-colors duration-200 py-3 text-lg rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
                 >
-                    Sign Up
+                    {!isSigningUp ? "Sign Up" : <Loader />}
                 </button>
                 <p
                     className="text-gray-400 cursor-pointer"
