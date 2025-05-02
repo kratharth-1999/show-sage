@@ -1,12 +1,28 @@
 import React, { useState } from "react";
+import { validateEmail, validatePassword } from "../utils/validate";
 
 const LoginForm = ({ toggleSignInForm }) => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [loginFormData, setLoginFormData] = useState({
+        email: "",
+        password: "",
+    });
+
+    const [loginFormErrors, setLoginFormErrors] = useState({
+        email: "",
+        password: "",
+    });
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(email, password);
+
+        // Validate the form data
+        const emailError = validateEmail(loginFormData.email);
+        const passwordError = validatePassword(loginFormData.password);
+        setLoginFormErrors({
+            ...loginFormErrors,
+            email: emailError ? emailError : "",
+            password: passwordError ? passwordError : "",
+        });
     };
 
     return (
@@ -25,11 +41,25 @@ const LoginForm = ({ toggleSignInForm }) => {
                     <input
                         type="email"
                         id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={loginFormData.email}
+                        onChange={(e) =>
+                            setLoginFormData({
+                                ...loginFormData,
+                                email: e.target.value,
+                            })
+                        }
                         placeholder="Enter your email"
-                        className="w-full px-4 py-2 bg-black/20 text-white border border-gray-700 rounded-md placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500"
+                        className={`w-full px-4 py-2 bg-black/20 text-white border border-gray-700 rounded-md placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 ${
+                            loginFormErrors.email
+                                ? "ring-2 ring-red-500"
+                                : "ring-0"
+                        }`}
                     />
+                    {loginFormErrors.email && (
+                        <p className="text-red-400 font-bold">
+                            {loginFormErrors.email}
+                        </p>
+                    )}
                 </div>
                 <div className="space-y-2">
                     <label
@@ -41,11 +71,25 @@ const LoginForm = ({ toggleSignInForm }) => {
                     <input
                         type="password"
                         id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Enter your password"
-                        className="w-full px-4 py-2 bg-black/20 text-white border border-gray-700 rounded-md placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500"
+                        value={loginFormData.password}
+                        onChange={(e) =>
+                            setLoginFormData({
+                                ...loginFormData,
+                                password: e.target.value,
+                            })
+                        }
+                        placeholder="Enter your password (Min 8 characters)"
+                        className={`w-full px-4 py-2 bg-black/20 text-white border border-gray-700 rounded-md placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 ${
+                            loginFormErrors.password
+                                ? "ring-2 ring-red-500"
+                                : "ring-0"
+                        }`}
                     />
+                    {loginFormErrors.password && (
+                        <p className="text-red-400 font-bold">
+                            {loginFormErrors.password}
+                        </p>
+                    )}
                 </div>
                 <button
                     type="submit"
