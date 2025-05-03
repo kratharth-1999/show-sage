@@ -1,19 +1,40 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { auth } from "../utils/firebase";
 import { toast } from "react-toastify";
 import { signOut } from "firebase/auth";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { addUser, removeUser } from "../store/slices/userSlice";
+import { onAuthStateChanged } from "firebase/auth";
 
 const Header = () => {
-    const navigate = useNavigate();
     const user = useSelector((store) => store.user);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        // This is like adding an event listener and retains the user on page refresh
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                dispatch(
+                    addUser({
+                        uid: user.uid,
+                        email: user.email,
+                        displayName: user.displayName,
+                    })
+                );
+                navigate("/browse");
+            } else {
+                dispatch(removeUser());
+                navigate("/");
+            }
+        });
+    }, []);
 
     const handleSignOut = () => {
         signOut(auth)
-            .then(() => {
-                navigate("/");
-            })
+            .then(() => {})
             .catch((error) => {
                 toast.error("Something went wrong, please try again!");
             });

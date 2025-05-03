@@ -3,7 +3,6 @@ import { validateEmail, validatePassword } from "../utils/validate";
 import Loader from "./Loader";
 import { auth } from "../utils/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useNavigate } from "react-router";
 
 const LoginForm = ({ toggleSignInForm }) => {
     const [loginFormData, setLoginFormData] = useState({
@@ -17,7 +16,6 @@ const LoginForm = ({ toggleSignInForm }) => {
     });
 
     const [isSigningIn, setIsSigningIn] = useState(false);
-    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -44,7 +42,6 @@ const LoginForm = ({ toggleSignInForm }) => {
                 loginFormData.password
             );
             setIsSigningIn(false);
-            navigate("/browse");
         } catch (error) {
             setIsSigningIn(false);
             setLoginFormErrors({

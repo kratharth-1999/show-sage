@@ -4,7 +4,6 @@ import { auth } from "../utils/firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import Loader from "./Loader";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { addUser } from "../store/slices/userSlice";
 
@@ -28,7 +27,6 @@ const validateSignUpFormSchema = z
 const SignUpForm = ({ toggleSignInForm }) => {
     const [errors, setErrors] = useState({});
     const [isSigningUp, setIsSigningUp] = useState(false);
-    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const handleSubmit = async (e) => {
@@ -65,7 +63,6 @@ const SignUpForm = ({ toggleSignInForm }) => {
                 .then(() => {
                     setIsSigningUp(false);
                     toast.success("User signed up successfully!");
-                    navigate("/browse");
                     const { uid, email, displayName } = auth.currentUser;
                     dispatch(
                         addUser({
