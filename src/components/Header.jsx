@@ -15,7 +15,7 @@ const Header = () => {
 
     useEffect(() => {
         // This is like adding an event listener and retains the user on page refresh
-        onAuthStateChanged(auth, (user) => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
                 dispatch(
                     addUser({
@@ -30,6 +30,9 @@ const Header = () => {
                 navigate("/");
             }
         });
+
+        // Unsubscribe when component unmounts
+        return () => unsubscribe();
     }, []);
 
     const handleSignOut = () => {
