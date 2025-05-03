@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { addUser, removeUser } from "../store/slices/userSlice";
 import { onAuthStateChanged } from "firebase/auth";
+import { Logo } from "./Logo";
 
 const Header = () => {
     const user = useSelector((store) => store.user);
@@ -46,9 +47,7 @@ const Header = () => {
     return (
         <header className="absolute top-0 left-0 right-0 z-10 bg-gradient-to-b from-black to-transparent px-8 py-4">
             <div className="container mx-auto flex items-center justify-between">
-                <h1 className="text-red-600 text-4xl font-extrabold tracking-tight">
-                    ShowSage
-                </h1>
+                <Logo />
                 <div className="flex items-center gap-x-2">
                     {user?.displayName && (
                         <span className="text-red-500 font-bold text-lg">
