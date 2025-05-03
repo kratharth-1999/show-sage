@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const useGet = () => {
+const useGet = () => {
     const [stateOfGetRequest, setStateOfGetRequest] = useState({
         data: null,
         gettingData: false,
@@ -54,3 +54,5 @@ export const useGet = () => {
         getData,
     };
 };
+
+export default useGet;
