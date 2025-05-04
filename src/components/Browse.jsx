@@ -11,7 +11,7 @@ const Browse = () => {
         <div className="relative">
             <Header />
             <VideoContainer />
-            {/* <MovieListContainer /> */}
+            <MovieListContainer />
         </div>
     );
 };

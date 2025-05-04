@@ -7,7 +7,8 @@ const VideoContainer = () => {
     const movies = useSelector((store) => store.movies?.nowPlayingMovies);
     if (!movies) return;
 
-    const movieToBeDisplayed = movies[0];
+    const movieToBeDisplayed =
+        movies[Math.floor(Math.random() * movies.length)];
 
     const { original_title, overview, id } = movieToBeDisplayed;
 

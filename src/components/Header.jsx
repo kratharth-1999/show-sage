@@ -57,7 +57,7 @@ const Header = () => {
                     {user && (
                         <button
                             type="button"
-                            className="bg-red-600 text-white hover:bg-red-700 transition-colors duration-200 text-md rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 p-2"
+                            className="bg-red-600 text-white hover:bg-red-700 transition-colors duration-200 text-md rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 p-2 shadow-md font-semibold"
                             onClick={handleSignOut}
                         >
                             Sign Out
