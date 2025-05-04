@@ -15,7 +15,7 @@ const VideoContainer = () => {
     return (
         <div className="relative aspect-video">
             <VideoBackground movieId={id} />
-            <div className="text-white bg-transparent bg-opacity-50 absolute w-full h-full content-center z-20 pl-8">
+            <div className="text-white bg-transparent bg-opacity-50 absolute w-full h-full content-center pl-8">
                 <VideoTitle title={original_title} overview={overview} />
             </div>
         </div>

@@ -6,8 +6,8 @@ const MovieListContainer = () => {
     const movies = useSelector((store) => store.movies);
 
     return (
-        <div className="bg-black absolute z-20">
-            <div className="2xl:-mt-100 relative xl:-mt-52 sm:-mt-30 space-y-8">
+        <div className="bg-black absolute z-10">
+            <div className="2xl:-mt-100 relative xl:-mt-52 -mt-24 space-y-8">
                 <MovieList
                     title={"Now Playing"}
                     movies={movies?.nowPlayingMovies}
