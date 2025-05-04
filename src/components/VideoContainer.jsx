@@ -13,7 +13,7 @@ const VideoContainer = () => {
     const { original_title, overview, id } = movieToBeDisplayed;
 
     return (
-        <div className="relative h-[100vh]">
+        <div className="relative aspect-video">
             <VideoBackground movieId={id} />
             <div className="absolute left-8 text-white p-4 bg-transparent bg-opacity-50 rounded-lg top-[50%]">
                 <VideoTitle title={original_title} overview={overview} />
