@@ -7,7 +7,7 @@ const MovieListContainer = () => {
 
     return (
         <div className="bg-black absolute z-10">
-            <div className="2xl:-mt-100 relative xl:-mt-52 lg:-mt-40 md:-mt-32 -mt-24 space-y-8">
+            <div className="2xl:-mt-88 relative xl:-mt-52 lg:-mt-40 md:-mt-32 -mt-24 space-y-8">
                 <MovieList
                     title={"Now Playing"}
                     movies={movies?.nowPlayingMovies}
