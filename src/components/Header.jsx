@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { addUser, removeUser } from "../store/slices/userSlice";
 import { onAuthStateChanged } from "firebase/auth";
 import { Logo } from "./Logo";
+import GPTSearch from "./GPTSearch";
 
 const Header = () => {
     const user = useSelector((store) => store.user);
@@ -49,11 +50,7 @@ const Header = () => {
             <div className="container mx-auto flex items-center justify-between">
                 <Logo />
                 <div className="flex items-center gap-x-2">
-                    {user?.displayName && (
-                        <span className="text-red-500 font-bold text-lg">
-                            Welcome, {user.displayName}
-                        </span>
-                    )}
+                    <GPTSearch />
                     {user && (
                         <button
                             type="button"
