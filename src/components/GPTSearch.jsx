@@ -19,8 +19,7 @@ const GPTSearch = () => {
         setGPTResponse("");
         const response = await ai.models.generateContent({
             model: "gemini-2.0-flash",
-            contents: ` Act like a movie recommendation system. Generate a list of movie names (Maximum: 5) with the following query: ${query}.\
-                        The response must be strictly a comma seperated list of movie names, with no other text preceding or following the list`,
+            contents: ` Act like a movie recommendation system. Generate a list of movie names (Maximum: 5) for the given input: INPUT=${query}. If you think the query represents a plot then interpret that plot and return movies that fit the description of the plot. If the query is a movie name then return that movie name. The response must be strictly a comma seperated list of movie names, with no other text preceding or following the list.`,
             config: {
                 abortSignal: signal,
             },
@@ -32,7 +31,7 @@ const GPTSearch = () => {
         setGPTResponse(response.text);
     };
 
-    const handleSearch = useDebounceFetch(fetchGPTResponse, 500);
+    const handleSearch = useDebounceFetch(fetchGPTResponse, 1000);
 
     useEffect(() => {
         if (!searchValue || !searchValue.length) {
@@ -86,7 +85,7 @@ const GPTSearch = () => {
                     className="text-white cursor-pointer relative -left-8 text-xl"
                     onClick={() => setSearchValue("")}
                 >
-                    x
+                    X
                 </button>
             )}
         </div>

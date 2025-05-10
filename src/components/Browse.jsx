@@ -24,7 +24,7 @@ const Browse = () => {
                     <MovieListContainer />
                 </>
             ) : (
-                <div className="absolute pt-16 bg-black min-h-[100vh]">
+                <div className="absolute pt-16 bg-black min-h-[100vh] w-full">
                     <MovieList
                         title={"Search Result"}
                         movies={searchedMovies}
