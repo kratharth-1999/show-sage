@@ -9,7 +9,7 @@ const MovieCard = ({ movie }) => {
             <img
                 src={TMDB_IMAGES_CDN + movie.poster_path}
                 alt={movie.original_title + " Poster"}
-                className="w-full object-fill max-2xl:aspect-square"
+                className="w-full object-fill max-2xl:aspect-square h-full"
             />
         </div>
     );

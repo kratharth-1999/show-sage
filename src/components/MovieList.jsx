@@ -1,13 +1,14 @@
 import React from "react";
 import MovieCard from "./MovieCard";
-
-const MovieList = ({ title, movies }) => {
+const MovieList = ({ title, movies, className }) => {
     return (
         <section className="px-6">
             <h2 className="text-white text-md md:text-xl font-semibold mb-4">
                 {title}
             </h2>
-            <div className="flex overflow-x-auto gap-x-4 scroll-smooth overflow-y-hidden no-scrollbar lg:gap-x-8">
+            <div
+                className={`flex overflow-x-auto gap-x-4 scroll-smooth overflow-y-hidden no-scrollbar lg:gap-x-8 ${className}`}
+            >
                 {movies?.map((movie) => (
                     <MovieCard movie={movie} key={movie.id} />
                 ))}
