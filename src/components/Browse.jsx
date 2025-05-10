@@ -29,6 +29,7 @@ const Browse = () => {
                         title={"Search Result"}
                         movies={searchedMovies}
                         className="flex-wrap gap-y-8"
+                        showScroller={false}
                     />
                 </div>
             )}
