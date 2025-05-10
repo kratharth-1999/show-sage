@@ -1,6 +1,6 @@
 import useGet from "../hooks/useGet";
 import { TMDB_MOVIE_BASE_URL } from "../utils/constants";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addPopularMovies } from "../store/slices/moviesSlice";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
@@ -9,7 +9,10 @@ const usePopularMovies = () => {
     const { stateOfGetRequest: popularMoviesRequest, getData } = useGet();
     const dispatch = useDispatch();
 
+    const popularMovies = useSelector((store) => store.movies.popularMovies);
+
     useEffect(() => {
+        if (popularMovies) return;
         getData(TMDB_MOVIE_BASE_URL + "/popular");
     }, []);
 

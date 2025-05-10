@@ -1,6 +1,6 @@
 import useGet from "../hooks/useGet";
 import { TMDB_MOVIE_BASE_URL } from "../utils/constants";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addNowPlayingMovies } from "../store/slices/moviesSlice";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
@@ -9,7 +9,12 @@ const useNowPlayingMovies = () => {
     const { stateOfGetRequest: nowPlayingMoviesRequest, getData } = useGet();
     const dispatch = useDispatch();
 
+    const nowPlayingMovies = useSelector(
+        (store) => store.movies.nowPlayingMovies
+    );
+
     useEffect(() => {
+        if (nowPlayingMovies) return;
         getData(TMDB_MOVIE_BASE_URL + "/now_playing?page=1");
     }, []);
 
