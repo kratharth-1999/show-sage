@@ -69,18 +69,18 @@ const GPTSearch = () => {
     }, [gptResponse]);
 
     return (
-        <div className="relative">
+        <div className="relative flex-1">
             <input
                 type="text"
                 placeholder="GPT Search..."
                 value={searchValue}
-                className="w-16 focus:w-32 md:focus:w-64 lg:focus:w-96 md:w-32 lg:w-48 px-4 py-2 rounded-full bg-gray-800 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all duration-300 ease-in-out pr-10"
+                className="w-full md:focus:w-64 lg:focus:w-96 md:w-32 lg:w-48 px-4 py-2 rounded-full bg-gray-800 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all duration-300 ease-in-out pr-10 group-focus:flex-1"
                 onChange={(e) => setSearchValue(e.target.value)}
             />
             {searchingMovies && (
                 <Loader fill="red" inline={true} right="1rem" />
             )}
-            {searchValue.length && !searchingMovies && (
+            {searchValue.length > 0 && !searchingMovies && (
                 <button
                     className="text-white cursor-pointer relative -left-8 text-xl"
                     onClick={() => setSearchValue("")}
