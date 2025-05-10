@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@fontsource/dm-sans": "^5.2.5",
+    "@google/genai": "^0.13.0",
     "@tailwindcss/vite": "^4.1.5",
     "firebase": "^11.6.1",
     "react": "^19.0.0",
