@@ -2,7 +2,7 @@ import { Provider } from "react-redux";
 import Body from "./components/Body";
 import appStore from "./store/appStore";
 import { ToastContainer } from "react-toastify";
-import { Analytics } from "@vercel/analytics/next";
+import { Analytics } from "@vercel/analytics/react";
 
 function App() {
     return (
