@@ -1,4 +1,4 @@
-# ShowSage - Your Intelligent TV & Movie Guide
+# ShowSage - Your Intelligent TV & Movie Guide (Check it out in [here](https://show-sage.vercel.app/))
 
 ## ✨ Discover Your Next Binge with AI Wisdom ✨
 
