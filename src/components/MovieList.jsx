@@ -8,7 +8,7 @@ const MovieList = ({ title, movies, className, showScroller = true }) => {
             <h2 className="text-white text-md md:text-xl font-semibold mb-4">
                 {title}
             </h2>
-            {showScroller && (
+            {movies && showScroller && (
                 <>
                     <button
                         className="text-white text-7xl absolute left-8 z-20 h-[450px] cursor-pointer max-2xl:h-[300px]"
