@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import useDebounceFetch from "../hooks/useDebounce";
 import ai from "../utils/gemini";
 import { toast } from "react-toastify";
@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { addSearchedMovies } from "../store/slices/moviesSlice";
 import useSearchMovie from "../hooks/useSearchMovie";
 import Loader from "./Loader";
+import { IconX } from "@tabler/icons-react";
 
 const GPTSearch = () => {
     const [gptResponse, setGPTResponse] = useState("");
@@ -82,10 +83,10 @@ const GPTSearch = () => {
             )}
             {searchValue.length > 0 && !searchingMovies && (
                 <button
-                    className="text-white cursor-pointer relative -left-8 text-xl"
+                    className="text-white cursor-pointer relative -left-8 top-1"
                     onClick={() => setSearchValue("")}
                 >
-                    X
+                    <IconX stroke={2} size={20} />
                 </button>
             )}
         </div>

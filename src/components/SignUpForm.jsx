@@ -6,6 +6,8 @@ import Loader from "./Loader";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { addUser } from "../store/slices/userSlice";
+import { IconEye } from "@tabler/icons-react";
+import { IconEyeOff } from "@tabler/icons-react";
 
 const validateSignUpFormSchema = z
     .object({
@@ -27,6 +29,10 @@ const validateSignUpFormSchema = z
 const SignUpForm = ({ toggleSignInForm }) => {
     const [errors, setErrors] = useState({});
     const [isSigningUp, setIsSigningUp] = useState(false);
+    const [showPassword, setShowPassword] = useState({
+        password: false,
+        confirmPassword: false,
+    });
     const dispatch = useDispatch();
 
     const handleSubmit = async (e) => {
@@ -81,8 +87,15 @@ const SignUpForm = ({ toggleSignInForm }) => {
         }
     };
 
+    const togglePasswordView = (type) => {
+        setShowPassword((prev) => ({
+            ...prev,
+            [type]: !prev[type],
+        }));
+    };
+
     return (
-        <div className="w-full max-w-md p-6 bg-black/80 rounded-xl shadow-lg border border-black/80 space-y-6 backdrop-blur-md mx-auto">
+        <div className="w-full max-w-md p-6 bg-black/80 rounded-xl shadow-lg border border-black/80 space-y-6 backdrop-blur-md mx-auto max-md:w-[95%]">
             <h2 className="text-2xl font-semibold text-white text-center">
                 Sign Up
             </h2>
@@ -134,15 +147,36 @@ const SignUpForm = ({ toggleSignInForm }) => {
                     >
                         Password
                     </label>
-                    <input
-                        type="password"
-                        name="password"
-                        id="password"
-                        placeholder="Enter your password"
-                        className={`w-full px-4 py-2 bg-black/20 text-white border border-gray-700 rounded-md placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 ${
-                            errors.password ? "ring-2 ring-red-500" : "ring-0"
-                        }`}
-                    />
+                    <div className="flex items-center">
+                        <input
+                            type={showPassword.password ? "text" : "password"}
+                            name="password"
+                            id="password"
+                            placeholder="Enter your password"
+                            className={`w-full px-4 py-2 bg-black/20 text-white border border-gray-700 rounded-md placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 ${
+                                errors.password
+                                    ? "ring-2 ring-red-500"
+                                    : "ring-0"
+                            }`}
+                        />
+                        {showPassword.password ? (
+                            <IconEye
+                                stroke={2}
+                                className="text-white cursor-pointer absolute right-8"
+                                onClick={() => {
+                                    togglePasswordView("password");
+                                }}
+                            />
+                        ) : (
+                            <IconEyeOff
+                                stroke={2}
+                                className="text-white cursor-pointer absolute right-8"
+                                onClick={() => {
+                                    togglePasswordView("password");
+                                }}
+                            />
+                        )}
+                    </div>
                     {errors.password && (
                         <p className="text-red-400 font-bold">
                             {errors.password}
@@ -156,17 +190,40 @@ const SignUpForm = ({ toggleSignInForm }) => {
                     >
                         Confirm Password
                     </label>
-                    <input
-                        type="password"
-                        name="confirmPassword"
-                        id="confirmPassword"
-                        placeholder="Re enter your password"
-                        className={`w-full px-4 py-2 bg-black/20 text-white border border-gray-700 rounded-md placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 ${
-                            errors.confirmPassword
-                                ? "ring-2 ring-red-500"
-                                : "ring-0"
-                        }`}
-                    />
+                    <div className="flex items-center">
+                        <input
+                            type={
+                                showPassword.confirmPassword
+                                    ? "text"
+                                    : "password"
+                            }
+                            name="confirmPassword"
+                            id="confirmPassword"
+                            placeholder="Re enter your password"
+                            className={`w-full px-4 py-2 bg-black/20 text-white border border-gray-700 rounded-md placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 ${
+                                errors.confirmPassword
+                                    ? "ring-2 ring-red-500"
+                                    : "ring-0"
+                            }`}
+                        />
+                        {showPassword.confirmPassword ? (
+                            <IconEye
+                                stroke={2}
+                                className="text-white cursor-pointer absolute right-8"
+                                onClick={() => {
+                                    togglePasswordView("confirmPassword");
+                                }}
+                            />
+                        ) : (
+                            <IconEyeOff
+                                stroke={2}
+                                className="text-white cursor-pointer absolute right-8"
+                                onClick={() => {
+                                    togglePasswordView("confirmPassword");
+                                }}
+                            />
+                        )}
+                    </div>
                     {errors.confirmPassword && (
                         <p className="text-red-400 font-bold">
                             {errors.confirmPassword}

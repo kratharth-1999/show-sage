@@ -3,6 +3,8 @@ import { validateEmail, validatePassword } from "../utils/validate";
 import Loader from "./Loader";
 import { auth } from "../utils/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { IconEye } from "@tabler/icons-react";
+import { IconEyeOff } from "@tabler/icons-react";
 
 const LoginForm = ({ toggleSignInForm }) => {
     const [loginFormData, setLoginFormData] = useState({
@@ -16,6 +18,7 @@ const LoginForm = ({ toggleSignInForm }) => {
     });
 
     const [isSigningIn, setIsSigningIn] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -51,8 +54,12 @@ const LoginForm = ({ toggleSignInForm }) => {
         }
     };
 
+    const togglePasswordView = () => {
+        setShowPassword((prev) => !prev);
+    };
+
     return (
-        <div className="w-full max-w-md p-6 bg-black/80 rounded-xl shadow-lg border border-black/80 space-y-6 backdrop-blur-md mx-auto">
+        <div className="w-full max-w-md p-6 bg-black/80 rounded-xl shadow-lg border border-black/80 space-y-6 backdrop-blur-md mx-auto max-md:w-[95%]">
             <h2 className="text-2xl font-semibold text-white text-center">
                 Sign In
             </h2>
@@ -94,23 +101,42 @@ const LoginForm = ({ toggleSignInForm }) => {
                     >
                         Password
                     </label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={loginFormData.password}
-                        onChange={(e) =>
-                            setLoginFormData({
-                                ...loginFormData,
-                                password: e.target.value,
-                            })
-                        }
-                        placeholder="Enter your password (Min 8 characters)"
-                        className={`w-full px-4 py-2 bg-black/20 text-white border border-gray-700 rounded-md placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 ${
-                            loginFormErrors.password
-                                ? "ring-2 ring-red-500"
-                                : "ring-0"
-                        }`}
-                    />
+                    <div className="flex items-center">
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            id="password"
+                            value={loginFormData.password}
+                            onChange={(e) =>
+                                setLoginFormData({
+                                    ...loginFormData,
+                                    password: e.target.value,
+                                })
+                            }
+                            placeholder="Enter your password (Min 8 characters)"
+                            className={`w-full pl-4 pr-6 py-2 bg-black/20 text-white border border-gray-700 rounded-md placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 ${
+                                loginFormErrors.password
+                                    ? "ring-2 ring-red-500"
+                                    : "ring-0"
+                            }`}
+                        />
+                        {showPassword ? (
+                            <IconEye
+                                stroke={2}
+                                className="text-white cursor-pointer absolute right-8"
+                                onClick={() => {
+                                    togglePasswordView();
+                                }}
+                            />
+                        ) : (
+                            <IconEyeOff
+                                stroke={2}
+                                className="text-white cursor-pointer absolute right-8"
+                                onClick={() => {
+                                    togglePasswordView();
+                                }}
+                            />
+                        )}
+                    </div>
                     {loginFormErrors.password && (
                         <p className="text-red-400 font-bold">
                             {loginFormErrors.password}
