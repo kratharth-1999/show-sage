@@ -3,13 +3,14 @@ import { TMDB_MOVIE_BASE_URL } from "../utils/constants";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { addTrailerVideo } from "../store/slices/moviesSlice";
+import {
+    addTrailerVideo,
+    addTrailerMovieId,
+} from "../store/slices/moviesSlice";
 
 const useMovieVideos = (movieId) => {
     const { stateOfGetRequest: movieVideosRequest, getData } = useGet();
     const dispatch = useDispatch();
-
-    const trailerVideo = useSelector((store) => store.movies.trailerVideo);
 
     const fetchAndPushTrailerToStore = () => {
         const movieVideos = movieVideosRequest.data.results;
@@ -18,12 +19,13 @@ const useMovieVideos = (movieId) => {
         );
         const trailer = !trailers.length ? movieVideos[0] : trailers[0];
         dispatch(addTrailerVideo(trailer));
+        dispatch(addTrailerMovieId(movieId));
     };
 
     useEffect(() => {
-        if (trailerVideo) return;
+        if (!movieId) return;
         getData(TMDB_MOVIE_BASE_URL + `/${movieId}/videos`);
-    }, []);
+    }, [movieId]);
 
     useEffect(() => {
         if (!movieVideosRequest.getDataError) return;

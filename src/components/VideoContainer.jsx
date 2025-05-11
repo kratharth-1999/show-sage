@@ -5,10 +5,15 @@ import VideoBackground from "./VideoBackground";
 
 const VideoContainer = () => {
     const movies = useSelector((store) => store.movies?.nowPlayingMovies);
+    const trailerMovieId = useSelector((store) => store.movies.trailerMovieId);
     if (!movies) return;
 
-    const movieToBeDisplayed =
-        movies[Math.floor(Math.random() * movies.length)];
+    let movieToBeDisplayed = null;
+    if (trailerMovieId) {
+        movieToBeDisplayed = movies.find((movie) => movie.id == trailerMovieId);
+    } else {
+        movieToBeDisplayed = movies[Math.floor(Math.random() * movies.length)];
+    }
 
     const { original_title, overview, id } = movieToBeDisplayed;
 
