@@ -52,7 +52,7 @@ const LoginForm = ({ toggleSignInForm }) => {
     };
 
     return (
-        <div className="w-full max-w-md p-6 bg-black/80 rounded-xl shadow-lg border border-black/80 space-y-6 backdrop-blur-md">
+        <div className="w-full max-w-md p-6 bg-black/80 rounded-xl shadow-lg border border-black/80 space-y-6 backdrop-blur-md mx-auto">
             <h2 className="text-2xl font-semibold text-white text-center">
                 Sign In
             </h2>
