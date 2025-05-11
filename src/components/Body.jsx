@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
-import Login from "./Login";
-import Browse from "./Browse";
+import React, { lazy } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router";
+
+const Login = lazy(() => import("./Login"));
+const Browse = lazy(() => import("./Browse"));
 
 const Body = () => {
     const appRouter = createBrowserRouter([
