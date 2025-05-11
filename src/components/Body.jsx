@@ -1,5 +1,6 @@
-import React, { lazy } from "react";
+import React, { lazy, Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router";
+import ShowSageFallback from "./Fallback";
 
 const Login = lazy(() => import("./Login"));
 const Browse = lazy(() => import("./Browse"));
@@ -21,9 +22,9 @@ const Body = () => {
     ]);
 
     return (
-        <div>
+        <Suspense fallback={<ShowSageFallback />}>
             <RouterProvider router={appRouter} />
-        </div>
+        </Suspense>
     );
 };
 
