@@ -2,6 +2,7 @@ import { Provider } from "react-redux";
 import Body from "./components/Body";
 import appStore from "./store/appStore";
 import { ToastContainer } from "react-toastify";
+import { Analytics } from "@vercel/analytics/next";
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                 pauseOnHover
                 theme="light"
             />
+            <Analytics />
         </Provider>
     );
 }
