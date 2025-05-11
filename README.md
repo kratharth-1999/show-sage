@@ -8,6 +8,14 @@ Think of ShowSage as your knowledgeable companion in the vast landscape of strea
 
 ## 🚀 Features
 
--   **Authentication (Upcoming):** - Firebase Authentication for Sign In and Sign Up Form.
--   **Genre Exploration (Upcoming):** Discover new and niche genres you might enjoy.
--   **Mood-Based Suggestions (Upcoming):** Tell ShowSage how you're feeling, and it will suggest content to match.
+**Core Features:**
+
+-   **Secure Sign-in & Sign-up:** Built with Firebase Authentication for a seamless and safe user experience.
+-   **Stay Updated with Now Playing:** Discover the latest movies currently in theaters.
+-   **Explore What's Hot:** Find out which movies are trending right now.
+-   **Personalized Mood-Based Recommendations:** Simply tell ShowSage your mood, and get tailored movie suggestions.
+
+**Coming Soon:**
+
+-   **Dive into Genres:** Explore a wide range of movie genres, including niche discoveries.
+-   **Get the Details:** Access comprehensive information about each movie.
